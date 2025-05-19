@@ -1,0 +1,13 @@
+<h5 class="breadcrumbs-title mt-0 mb-0 display-inline hide-on-small-and-down"><span>สิทธิประโยชน์</span></h5>
+<ol class="breadcrumbs mb-0">
+    <li class="breadcrumb-item"><a href="javascript:void(0)">เมนูหลัก</a>
+    </li>
+    <li class="breadcrumb-item active">สิทธิประโยชน์
+    </li>
+</ol>
+<br>
+<br>
+<!-- {{paginationModel.totalItems}} -->
+<app-privilege-criteria [paginationModel]="paginationModel" (messageToEmit)="getMessageCriteria($event)"></app-privilege-criteria>
+<app-privilege-list [paginationModel]="paginationModel" [messageInput]="listModel" (messageToEmit)="getMessageList($event)"></app-privilege-list>
+

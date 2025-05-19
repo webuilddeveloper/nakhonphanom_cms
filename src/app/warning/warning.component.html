@@ -1,0 +1,19 @@
+<h5 class="breadcrumbs-title mt-0 mb-0 display-inline hide-on-small-and-down"><span>อาสาเตือนภัย</span></h5>
+<ol class="breadcrumbs mb-0">
+    <li class="breadcrumb-item"><a href="javascript:void(0)">เมนูหลัก</a>
+    </li>
+    <li class="breadcrumb-item active">อาสาเตือนภัย
+    </li>
+</ol>
+<br>
+<br>
+
+<!-- {{paginationModel.totalItems}} -->
+<app-warning-criteria (messageToEmit)="getMessageCriteria($event)"></app-warning-criteria>
+<app-warning-list [paginationModel]="paginationModel" [messageInput]="listModel" (messageToEmit)="getMessageList($event)"></app-warning-list>
+
+<!-- <----- Pagination -->
+<!-- <div style="text-align: right;">
+    <ul><li *ngFor="let item of [] | paginate: paginationModel"></li></ul>
+    <pagination-controls (pageChange)="paginationModel.currentPage = $event" previousLabel="ก่อนหน้า" nextLabel="ถัดไป" ></pagination-controls>
+</div> -->

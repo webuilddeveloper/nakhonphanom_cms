@@ -1,0 +1,233 @@
+import { MemberMobilePolicyMarketingComponent } from './member-mobile-policy-marketing/member-mobile-policy-marketing.component';
+import { MemberMobilePolicyApplicationComponent } from './member-mobile-policy-application/member-mobile-policy-application.component';
+import { LogoEditComponent } from './logo/logo-edit/logo-edit.component';
+import { LogoComponent } from './logo/logo.component';
+import { UserRoleEditComponent } from './user-role/user-role-edit/user-role-edit.component';
+import { UserRoleComponent } from './user-role/user-role.component';
+import { NewsCategoryEditComponent } from './news-category/news-category-edit/news-category-edit.component';
+import { NewsCategoryComponent } from './news-category/news-category.component';
+import { RotationEditComponent } from './rotation/rotation-edit/rotation-edit.component';
+import { KnowledgeEditComponent } from './knowledge/knowledge-edit/knowledge-edit.component';
+import { KnowledgeComponent } from './knowledge/knowledge.component';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { RoutingComponent } from './demo/routing/routing.component';
+import { RoutingParamComponent } from './demo/routing-param/routing-param.component';
+import { RoutingParamsComponent } from './demo/routing-params/routing-params.component';
+import { RoutingObjectComponent } from './demo/routing-object/routing-object.component';
+import { FileUploadComponent } from './demo/file-upload/file-upload.component';
+import { ModalComponent } from './demo/modal/modal.component';
+import { SpinnerComponent } from './demo/spinner/spinner.component';
+import { ToastComponent } from './demo/toast/toast.component';
+import { FormComponent } from './demo/form/form.component';
+import { DatetimepickerComponent } from './demo/datetimepicker/datetimepicker.component';
+import { ApplicationComponent } from './demo/application/application.component';
+import { LoginComponent } from './demo/login/login.component';
+import { SplashComponent } from './splash/splash.component';
+import { SplashEditComponent } from './splash/splash-edit/splash-edit.component';
+import { NewsComponent } from './news/news.component';
+import { PersonalComponent } from './personal/personal.component';
+import { BannerComponent } from './banner/banner.component';
+import { EventComponent } from './event/event.component';
+import { DropZoneComponent } from './demo/drop-zone/drop-zone.component';
+import { RotationComponent } from './rotation/rotation.component';
+import { MainPopupComponent } from './main-popup/main-popup.component';
+import { ForceAdsComponent } from './force-ads/force-ads.component';
+import { ForceAdsEditComponent } from './force-ads/force-ads-edit/force-ads-edit.component';
+import { SelectOptionComponent } from './demo/select-option/select-option.component';
+import { NewsEditComponent } from './news/news-edit/news-edit.component';
+import { BannerEditComponent } from './banner/banner-edit/banner-edit.component';
+import { EventEditComponent } from './event/event-edit/event-edit.component';
+import { PrivilegeComponent } from './privilege/privilege.component';
+import { PrivilegeEditComponent } from './privilege/privilege-edit/privilege-edit.component';
+import { SuggestionEditComponent } from './suggestion/suggestion-edit/suggestion-edit.component';
+import { SuggestionComponent } from './suggestion/suggestion.component';
+import { ContactEditComponent } from './contact/contact-edit/contact-edit.component';
+import { ContactComponent } from './contact/contact.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { PollComponent } from './poll/poll.component';
+import { PollEditComponent } from './poll/poll-edit/poll-edit.component';
+import { PrivilegeCategoryEditComponent } from './privilege-category/privilege-category-edit/privilege-category-edit.component';
+import { PrivilegeCategoryComponent } from './privilege-category/privilege-category.component';
+import { SuggestionCategoryEditComponent } from './suggestion-category/suggestion-category-edit/suggestion-category-edit.component';
+import { SuggestionCategoryComponent } from './suggestion-category/suggestion-category.component';
+import { ContactCategoryEditComponent } from './contact-category/contact-category-edit/contact-category-edit.component';
+import { ContactCategoryComponent } from './contact-category/contact-category.component';
+import { PoiComponent } from './poi/poi.component';
+import { PoiEditComponent } from './poi/poi-edit/poi-edit.component';
+import { PoiCategoryEditComponent } from './poi-category/poi-category-edit/poi-category-edit.component';
+import { PoiCategoryComponent } from './poi-category/poi-category.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { PollCategoryEditComponent } from './poll-category/poll-category-edit/poll-category-edit.component';
+import { PollCategoryComponent } from './poll-category/poll-category.component';
+import { MainPopupEditComponent } from './main-popup/main-popup-edit/main-popup-edit.component';
+import { EventCategoryEditComponent } from './event-category/event-category-edit/event-category-edit.component';
+import { EventCategoryComponent } from './event-category/event-category.component';
+import { KnowledgeCategoryEditComponent } from './knowledge-category/knowledge-category-edit/knowledge-category-edit.component';
+import { KnowledgeCategoryComponent } from './knowledge-category/knowledge-category.component';
+import { MemberComponent } from './member/member.component';
+import { MemberEditComponent } from './member/member-edit/member-edit.component';
+import { NotificationComponent } from './notification/notification.component';
+import { NotificationEditComponent } from './notification/notification-edit/notification-edit.component';
+import { NotificationCategoryComponent } from './notification-category/notification-category.component';
+import { NotificationCategoryEditComponent } from './notification-category/notification-category-edit/notification-category-edit.component';
+import { MemberMobileComponent } from './member-mobile/member-mobile.component';
+import { MemberMobileEditComponent } from './member-mobile/member-mobile-edit/member-mobile-edit.component';
+import { OrganizationComponent } from './organization/organization.component';
+import { WelfareComponent } from './welfare/welfare.component';
+import { WelfareEditComponent } from './welfare/welfare-edit/welfare-edit.component';
+import { WelfareCategoryComponent } from './welfare-category/welfare-category.component';
+import { WelfareCategoryEditComponent } from './welfare-category/welfare-category-edit/welfare-category-edit.component';
+import { TrainingComponent } from './training/training.component';
+import { TrainingEditComponent } from './training/training-edit/training-edit.component';
+import { TrainingCategoryComponent } from './training-category/training-category.component';
+import { TrainingCategoryEditComponent } from './training-category/training-category-edit/training-category-edit.component';
+import { ReporterEditComponent } from './reporter/reporter-edit/reporter-edit.component';
+import { ReporterComponent } from './reporter/reporter.component';
+import { ReporterCategoryEditComponent } from './reporter-category/reporter-category-edit/reporter-category-edit.component';
+import { ReporterCategoryComponent } from './reporter-category/reporter-category.component';
+import { LineComponent } from './line/line.component';
+import { Organization2Component } from './organization2/organization2.component';
+import { Organization2Lv0EditComponent } from './organization2/organization2-lv0-edit/organization2-lv0-edit.component';
+import { Organization2Lv1EditComponent } from './organization2/organization2-lv1-edit/organization2-lv1-edit.component';
+import { Organization2Lv2EditComponent } from './organization2/organization2-lv2-edit/organization2-lv2-edit.component';
+import { Organization2Lv3EditComponent } from './organization2/organization2-lv3-edit/organization2-lv3-edit.component';
+import { Organization2Lv4EditComponent } from './organization2/organization2-lv4-edit/organization2-lv4-edit.component';
+import { WarningEditComponent } from './warning/warning-edit/warning-edit.component';
+import { WarningComponent } from './warning/warning.component';
+import { WarningCategoryEditComponent } from './warning-category/warning-category-edit/warning-category-edit.component';
+import { WarningCategoryComponent } from './warning-category/warning-category.component';
+import { PolicyMarketingEditComponent } from './policy-marketing/policy-marketing-edit/policy-marketing-edit.component';
+import { PolicyMarketingComponent } from './policy-marketing/policy-marketing.component';
+import { PolicyApplicationEditComponent } from './policy-application/policy-application-edit/policy-application-edit.component';
+import { PolicyApplicationComponent } from './policy-application/policy-application.component';
+import { FundComponent } from './fund/fund.component';
+import { FundEditComponent } from './fund/fund-edit/fund-edit.component';
+import { FundCategoryComponent } from './fund-category/fund-category.component';
+import { FundCategoryEditComponent } from './fund-category/fund-category-edit/fund-category-edit.component';
+import { CooperativeFormComponent } from './cooperative-form/cooperative-form.component';
+import { CooperativeFormEditComponent } from './cooperative-form/cooperative-form-edit/cooperative-form-edit.component';
+import { CooperativeFormCategoryComponent } from './cooperative-form-category/cooperative-form-category.component';
+import { CooperativeFormCategoryEditComponent } from './cooperative-form-category/cooperative-form-category-edit/cooperative-form-category-edit.component';
+import { ComingSoonComponent } from './coming-soon/coming-soon.component';
+import { ComingSoonEditComponent } from './coming-soon/coming-soon-edit/coming-soon-edit.component';
+
+const routes: Routes = [
+  { path: '', component: DashboardComponent },
+  { path: 'demo-routing', component: RoutingComponent },
+  { path: 'demo-routing-param/:id', component: RoutingParamComponent },
+  { path: 'demo-routing-params/:id/:id2', component: RoutingParamsComponent },
+  { path: 'demo-routing-object', component: RoutingObjectComponent },
+  { path: 'demo-file-upload', component: FileUploadComponent },
+  { path: 'demo-modal', component: ModalComponent },
+  { path: 'demo-spinner', component: SpinnerComponent },
+  { path: 'demo-toast', component: ToastComponent },
+  { path: 'demo-form', component: FormComponent },
+  { path: 'demo-datetimepicker', component: DatetimepickerComponent },
+  { path: 'demo-application', component: ApplicationComponent },
+  { path: 'demo-login', component: LoginComponent },
+  { path: 'demo-drop-zone', component: DropZoneComponent },
+  { path: 'demo-select-option', component: SelectOptionComponent },
+  { path: 'splash', component: SplashComponent },
+  { path: 'splash-edit/:code', component: SplashEditComponent },
+  { path: 'news', component: NewsComponent },
+  { path: 'news-edit/:code', component: NewsEditComponent },
+  { path: 'personal-info', component: PersonalComponent },
+  { path: 'banner', component: BannerComponent },
+  { path: 'banner-edit/:code', component: BannerEditComponent },
+  { path: 'event', component: EventComponent },
+  { path: 'event-edit/:code', component: EventEditComponent },
+  { path: 'rotation', component: RotationComponent },
+  { path: 'rotation-edit/:code', component: RotationEditComponent },
+  { path: 'main-popup', component: MainPopupComponent },
+  { path: 'main-popup-edit/:code', component: MainPopupEditComponent },
+  { path: 'force-ads', component: ForceAdsComponent },
+  { path: 'force-ads-edit/:code', component: ForceAdsEditComponent },
+  { path: 'knowledge', component: KnowledgeComponent },
+  { path: 'knowledge-edit/:code', component: KnowledgeEditComponent },
+  { path: 'privilege', component: PrivilegeComponent },
+  { path: 'privilege-edit/:code', component: PrivilegeEditComponent },
+  { path: 'suggestion', component: SuggestionComponent },
+  { path: 'suggestion-edit/:code', component: SuggestionEditComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'contact-edit/:code', component: ContactEditComponent },
+  { path: 'about-us', component: AboutUsComponent },
+  { path: 'poll', component: PollComponent },
+  { path: 'poll-edit/:code', component: PollEditComponent },
+  { path: 'privilege-category', component: PrivilegeCategoryComponent },
+  { path: 'privilege-category-edit/:code', component: PrivilegeCategoryEditComponent },
+  { path: 'suggestion-category', component: SuggestionCategoryComponent },
+  { path: 'suggestion-category-edit/:code', component: SuggestionCategoryEditComponent },
+  { path: 'contact-category', component: ContactCategoryComponent },
+  { path: 'contact-category-edit/:code', component: ContactCategoryEditComponent },
+  { path: 'poi', component: PoiComponent },
+  { path: 'poi-edit/:code', component: PoiEditComponent },
+  { path: 'poi-category', component: PoiCategoryComponent },
+  { path: 'poi-category-edit/:code', component: PoiCategoryEditComponent },
+  { path: 'poll-category', component: PollCategoryComponent },
+  { path: 'poll-category-edit/:code', component: PollCategoryEditComponent },
+  { path: 'event-category', component: EventCategoryComponent },
+  { path: 'event-category-edit/:code', component: EventCategoryEditComponent },
+  { path: 'knowledge-category', component: KnowledgeCategoryComponent },
+  { path: 'knowledge-category-edit/:code', component: KnowledgeCategoryEditComponent },
+  { path: 'news-category', component: NewsCategoryComponent },
+  { path: 'news-category-edit/:code', component: NewsCategoryEditComponent },
+  { path: 'member', component: MemberComponent },
+  { path: 'member-edit/:code', component: MemberEditComponent },
+  { path: 'member-mobile', component: MemberMobileComponent },
+  { path: 'member-mobile-edit/:code', component: MemberMobileEditComponent },
+  { path: 'organization', component: Organization2Component },
+  { path: 'organization-lv0-edit/:code', component: Organization2Lv0EditComponent },
+  { path: 'organization-lv1-edit/:code', component: Organization2Lv1EditComponent },
+  { path: 'organization-lv2-edit/:code', component: Organization2Lv2EditComponent },
+  { path: 'organization-lv3-edit/:code', component: Organization2Lv3EditComponent },
+  { path: 'organization-lv4-edit/:code', component: Organization2Lv4EditComponent },
+  { path: 'user-role', component: UserRoleComponent },
+  { path: 'user-role-edit/:code', component: UserRoleEditComponent },
+  { path: 'logo', component: LogoComponent },
+  { path: 'logo-edit/:code', component: LogoEditComponent },
+  { path: 'notification', component: NotificationComponent },
+  { path: 'notification-edit/:code', component: NotificationEditComponent },
+  { path: 'notification-category', component: NotificationCategoryComponent },
+  { path: 'notification-category-edit/:code', component: NotificationCategoryEditComponent },
+  { path: 'welfare', component: WelfareComponent },
+  { path: 'welfare-edit/:code', component: WelfareEditComponent },
+  { path: 'welfare-category', component: WelfareCategoryComponent },
+  { path: 'welfare-category-edit/:code', component: WelfareCategoryEditComponent },
+  { path: 'training', component: TrainingComponent },
+  { path: 'training-edit/:code', component: TrainingEditComponent },
+  { path: 'training-category', component: TrainingCategoryComponent },
+  { path: 'training-category-edit/:code', component: TrainingCategoryEditComponent },
+  { path: 'reporter', component: ReporterComponent },
+  { path: 'reporter-edit/:code', component: ReporterEditComponent },
+  { path: 'reporter-category', component: ReporterCategoryComponent },
+  { path: 'reporter-category-edit/:code', component: ReporterCategoryEditComponent },
+  { path: 'line', component: LineComponent },
+  { path: 'warning', component: WarningComponent },
+  { path: 'warning-edit/:code', component: WarningEditComponent },
+  { path: 'warning-category', component: WarningCategoryComponent },
+  { path: 'warning-category-edit/:code', component: WarningCategoryEditComponent },
+  { path: 'policy-application', component: PolicyApplicationComponent },
+  { path: 'policy-application-edit/:code', component: PolicyApplicationEditComponent },
+  { path: 'policy-marketing', component: PolicyMarketingComponent },
+  { path: 'policy-marketing-edit/:code', component: PolicyMarketingEditComponent },
+  { path: 'member-mobile-policy-application', component: MemberMobilePolicyApplicationComponent },
+  { path: 'member-mobile-policy-marketing', component: MemberMobilePolicyMarketingComponent },
+  { path: 'fund', component: FundComponent },
+  { path: 'fund-edit/:code', component: FundEditComponent },
+  { path: 'fund-category', component: FundCategoryComponent },
+  { path: 'fund-category-edit/:code', component: FundCategoryEditComponent },
+  { path: 'cooperative-form', component: CooperativeFormComponent },
+  { path: 'cooperative-form-edit/:code', component: CooperativeFormEditComponent },
+  { path: 'cooperative-form-category', component: CooperativeFormCategoryComponent },
+  { path: 'cooperative-form-category-edit/:code', component: CooperativeFormCategoryEditComponent },
+  { path: 'coming-soon', component: ComingSoonComponent },
+  { path: 'coming-soon-edit/:code', component: ComingSoonEditComponent },
+
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

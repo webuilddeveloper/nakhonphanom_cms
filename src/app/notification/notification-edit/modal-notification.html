@@ -1,0 +1,24 @@
+{{test}}
+<div class="responsive-table">
+    <table id="users-list-datatable" class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>หัวข้อ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of listData; let idx = index">
+                <td>{{((categoryPagination.currentPage - 1) * categoryPagination.itemsPerPage) + (idx + 1)}}</td>
+                <td><a href="javascript:void(0)"><p style="white-space: nowrap; width: 250px; overflow: hidden; text-overflow: ellipsis;">{{i.title}}</p></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div mat-dialog-actions>
+    <div class="col s6 m6 l12 text-right">
+        <a class="mb-6 btn waves-effect waves-light gradient-45deg-purple-deep-orange" style="margin-right: 10px;"
+            (click)="ok()">ยืนยัน</a>
+        <a class="mb-6 btn waves-effect waves-light gradient-45deg-purple-deep-orange" (click)="cancel()">ยกเลิก</a>
+    </div>
+</div>

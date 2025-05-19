@@ -1,0 +1,944 @@
+<h5 class="breadcrumbs-title mt-0 mb-0 display-inline hide-on-small-and-down">
+    <span>{{ title }}</span>
+  </h5>
+  <ol class="breadcrumbs mb-0">
+    <li class="breadcrumb-item"><a href="javascript:void(0)">เมนูหลัก</a></li>
+    <li class="breadcrumb-item"><a href="javascript:void(0)">แบบสำรวจ</a></li>
+    <li class="breadcrumb-item active">{{ title }}</li>
+  </ol>
+  <br />
+  <br />
+  <ngx-spinner>
+    <p style="color: white;">Loading...</p>
+  </ngx-spinner>
+  
+  <div class="col s9" style="padding-left: 0px !important;">
+    <div class="row">
+      <div class="col s12">
+        <div class="container">
+          <section class="users-list-wrapper section">
+            <div class="users-list-filter">
+              <!-- Header -->
+              <div
+                class="card-panel"
+                style="
+                  margin-bottom: 0px;
+                  background-color: lavender;
+                  vertical-align: text-top;
+                "
+              >
+              <div class="row">
+                  <div class="col s6">
+                      <i class="material-icons header-icon">
+                          border_color
+                      </i>
+                      <span
+                          style="position: relative; float:left; padding-left: 10px; padding-top: 10px;">
+                          {{title}}
+                      </span>
+                  </div>
+                  <div class="col s6" [hidden]="isAnswer">
+                      <div class="col s6">
+                      </div>
+                      <div class="col s6">
+                          <cbtn [label]="'รายการคำถาม'" [color]="'blue'" (click)="isAnswer = !isAnswer">
+                          </cbtn>
+                      </div>
+                  </div>
+                  <div class="col s6" [hidden]="!isAnswer">
+                      <div class="col s6">
+                          <cbtn [label]="'Export Excel'" [color]="'green'" [icon]="'file_download'" (click)="exportAsXLSX()"></cbtn>
+                      </div>
+                      <div class="col s6">
+                          <cbtn [label]="'รายการคำถาม'" [color]="'blue'" (click)="isAnswer = !isAnswer">
+                          </cbtn>
+                      </div>
+                  </div>
+              </div>
+              </div>
+  
+              <div
+                class="card-panel"
+                style="margin-bottom: 0px; margin-top: 0px;"
+                [hidden]="isAnswer"
+              >
+                <!-- BEGIN: Do Something This Here -->
+  
+                <div class="row">
+                  <div class="row" *ngIf="editModel.tab == 'tab1'">
+                    <div class="col s8">
+                      <div class="row">
+                        <div class="col s12">
+                          <cinum
+                            (cModel)="editModel.sequence = $event"
+                            [label]="'ลำดับ : '"
+                            [data]="editModel.sequence || 0"
+                          ></cinum>
+                        </div>
+                        <div class="col s12" style="padding-bottom: 20px;">
+                          <csop
+                            (cModel)="readCategory($event)"
+                            [label]="'* ภาษา : '"
+                            [data]="editModel.language"
+                            [sources]="[
+                              { value: 'th', display: 'ไทย' },
+                              { value: 'en', display: 'อังกฤษ' }
+                            ]"
+                          >
+                          </csop>
+                        </div>
+                        <div class="col s12" style="padding-bottom: 20px;">
+                          <csop
+                            (cModel)="editModel.category = $event"
+                            [label]="'* หมวดหมู่ : '"
+                            [data]="editModel.category"
+                            [sources]="listCategory"
+                          >
+                          </csop>
+                        </div>
+                        <div class="col s12">
+                          <citxt
+                            (cModel)="editModel.title = $event"
+                            [label]="'* หัวข้อ : '"
+                            [data]="editModel.title || ''"
+                          ></citxt>
+                        </div>
+                      </div>
+  
+                      <div class="row">
+                        <div class="col s12">
+                          <citxt
+                            (cModel)="editModel.textButton = $event"
+                            [label]="'ชื่อปุ่มแหล่งอ้างอิง : '"
+                            [data]="editModel.textButton || ''"
+                          ></citxt>
+                        </div>
+                        <div class="col s12">
+                          <citxt
+                            (cModel)="editModel.linkUrl = $event"
+                            [label]="'ลิ้งค์แหล่งอ้างอิง : '"
+                            [data]="editModel.linkUrl || ''"
+                          ></citxt>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="col s4">
+                      <div class="col s12">
+                        <cds
+                          (cModel)="editModel.image = $event"
+                          [label]="'* รูปปก (คลิกเลือกภาพ/ลากวางภาพที่นี่)'"
+                          [data]="[{ imageUrl: this.editModel.imageUrl || '' }]"
+                          [code]="'news'"
+                        >
+                        </cds>
+                      </div>
+                      <div class="col s12" style="color: red; padding-top: 20px;">
+                        <span>*Maximum 100 MB</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- END: Do Something This Here -->
+              </div>
+  
+              <div
+                class="card-panel"
+                style="margin-bottom: 0px; margin-top: 0px;"
+                [hidden]="!isAnswer"
+                *ngFor="let i of listReply; let idx = index"
+              >
+                <!-- BEGIN: Do Something This Here -->
+  
+                <div style="overflow-x: auto;">
+                  <table
+                    id="users-list-datatable"
+                    class="bordered centered striped"
+                  >
+                    <thead>
+                      <tr>
+                        <th>ลำดับ</th>
+                        <th>คำถาม</th>
+                        <th>คำตอบ</th>
+                        <th>ผู้ใช้ระบบ</th>
+                        <th>ชื่อ</th>
+                        <th>นามสกุล</th>
+                        <th>สร้างวันที่</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let j of i.data; let idx = index">
+                        <td>
+                          <div class="w30">
+                            {{ idx + 1 }}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="w150">
+                            <a href="javascript:void(0)">{{ j.title }}</a>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="w150">
+                            {{ j.answer }}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="w150">
+                            {{ j.username }}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="w150">
+                            {{ j.firstName }}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="w150">
+                            {{ j.lastName }}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="w150">
+                            {{ j.createDate | datetimeFormat }}
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+  
+                <!-- END: Do Something This Here -->
+              </div>
+  
+              <div class="row" *ngFor="let i of listReply; let idx = index">
+                <div class="col s12">
+                  <div class="container">
+                    <section class="users-list-wrapper section">
+                      <div class="users-list-filter"></div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row" [hidden]="isAnswer">
+      <div class="col s12">
+        <div class="container">
+          <section class="users-list-wrapper section">
+            <div class="users-list-filter">
+              <!-- Header -->
+              <div
+                class="card-panel"
+                style="
+                  margin-bottom: 0px;
+                  background-color: lavender;
+                  vertical-align: text-top;
+                "
+              >
+                <div class="row">
+                  <div class="col s8">
+                    <i class="material-icons header-icon">
+                      border_color
+                    </i>
+                    <span
+                      style="
+                        position: relative;
+                        float: left;
+                        font-size: 1em;
+                        padding-left: 10px;
+                        padding-top: 10px;
+                      "
+                    >
+                      รายละเอียด
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="card-panel"
+                style="margin-bottom: 0px; margin-top: 0px;"
+              >
+                <!-- BEGIN: Do Something This Here -->
+  
+                <div class="row">
+                  <div class="col s6">
+                    <div class="row">
+                      <div class="col s12">
+                        <ctxte
+                          (cModel)="editModel.description = $event"
+                          [label]="'รายละเอียด : '"
+                          [data]="editModel.description || ''"
+                        ></ctxte>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="col s1"></div>
+                  <div class="col s4">
+                    <div class="col s12">
+                      <cdsf
+                        (cModel)="editModel.file = $event"
+                        [label]="
+                          'ไฟล์ PDF (เลือกไฟล์ PDF , Excel/วางไฟล์ PDF , Excelที่นี่)'
+                        "
+                        [data]="[
+                          { imageUrl: editModel.fileUrl == '' ? '' : imageFile }
+                        ]"
+                        [code]="'poll'"
+                      >
+                      </cdsf>
+                    </div>
+                    <div class="col s12" style="color: red; padding-top: 20px;">
+                      <span>*Maximum 100 MB</span>
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- END: Do Something This Here -->
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  
+    <div [hidden]="isAnswer">
+      <div class="row">
+        <div class="col s12">
+          <div class="container">
+            <section class="users-list-wrapper section">
+              <div class="users-list-filter">
+                <div
+                  class="card-panel"
+                  style="margin-bottom: 0px; margin-top: 0px;"
+                >
+                  <!-- BEGIN: Do Something This Here -->
+  
+                  <div class="row">
+                    <div class="col s12">
+                      <div class="col s12">
+                        <span
+                          style="
+                            position: relative;
+                            float: left;
+                            font-size: 1em;
+                            padding-left: 10px;
+                            padding-top: 10px;
+                            margin-right: 15px;
+                          "
+                        >
+                          แบบสอบถาม
+                        </span>
+                        <cbtn
+                          [label]="'เพิ่ม'"
+                          [color]="'blue'"
+                          (click)="addQuestion()"
+                        >
+                        </cbtn>
+                      </div>
+                    </div>
+  
+                    <!-- loop -->
+                    <div
+                      class="col s12"
+                      *ngFor="let i of listQuestion; let idx = index"
+                    >
+                      <div
+                        class="col s12"
+                        [hidden]="i.isActive == false"
+                        style="margin-bottom: 40px;"
+                      >
+                        <div class="col s12">
+                          <div class="col s12">
+                            <span
+                              style="
+                                position: relative;
+                                float: left;
+                                font-size: 1em;
+                                padding-left: 10px;
+                                padding-top: 10px;
+                                margin-right: 15px;
+                              "
+                            >
+                              ข้อที่
+                            </span>
+                            <span
+                              style="
+                                position: relative;
+                                float: left;
+                                font-size: 1em;
+                                padding-left: 10px;
+                                padding-top: 10px;
+                                margin-right: 15px;
+                              "
+                            >
+                              ประเภทคำถาม
+                            </span>
+                          </div>
+                        </div>
+  
+                        <div
+                          class="col s12"
+                          style="
+                            margin-top: 10px;
+                            margin-bottom: 10px;
+                            padding-left: 30px;
+                          "
+                        >
+                          <span
+                            style="
+                              position: relative;
+                              float: left;
+                              font-size: 1em;
+                              margin-left: 5px;
+                              text-align: center;
+                              padding-top: 10px;
+                              border-radius: 5px;
+                              margin-right: 15px;
+                              width: 35px;
+                              background-color: '#d7d7d7';
+                            "
+                          >
+                            {{ idx + 1 }}
+                          </span>
+                          <div style="margin-top: 5px;">
+                            <mat-radio-group
+                              [(ngModel)]="i.questionType"
+                              required
+                            >
+                              <mat-radio-button
+                                value="select"
+                                selected
+                                (change)="checkQuestionType($event, idx)"
+                                >ซ้อยตัวเลือก
+                              </mat-radio-button>
+                              <mat-radio-button
+                                style="margin-left: 10px;"
+                                value="text"
+                                (change)="checkQuestionType($event, idx)"
+                              >
+                                เติมคำตอบ
+                              </mat-radio-button>
+                            </mat-radio-group>
+                          </div>
+                        </div>
+  
+                        <div class="col s12">
+                          <div class="col s6">
+                            <citxt
+                              (cModel)="i.title = $event"
+                              [label]="'คำถาม'"
+                              [data]="i.title || ''"
+                            >
+                            </citxt>
+                          </div>
+                          <div class="col s6" style="padding-top: 15px;">
+                            <cbtn
+                              [color]="'red'"
+                              [icon]="'delete_forever'"
+                              (click)="removeQuestion(idx)"
+                            ></cbtn>
+                          </div>
+                        </div>
+  
+                        <div [hidden]="i.questionType != 'select'">
+                          <div class="col s12">
+                            <div class="row s12">
+                              <span
+                                style="
+                                  position: relative;
+                                  float: left;
+                                  font-size: 1em;
+                                  padding-left: 10px;
+                                  padding-top: 10px;
+                                  margin-right: 220px;
+                                "
+                              >
+                                วิธีการตอบ
+                              </span>
+                              <span
+                                style="
+                                  position: relative;
+                                  float: left;
+                                  font-size: 1em;
+                                  padding-left: 10px;
+                                  padding-top: 10px;
+                                  margin-right: 15px;
+                                "
+                              >
+                                ข้อบังคับการตอบ
+                              </span>
+                            </div>
+                          </div>
+  
+                          <div class="row s12">
+                            <div
+                              class="row s12"
+                              style="
+                                margin-top: 10px;
+                                margin-bottom: 10px;
+                                padding-left: 40px;
+                              "
+                            >
+                              <mat-radio-group
+                                aria-label="Select an option"
+                                style="margin-right: 80px;"
+                                [(ngModel)]="i.category"
+                              >
+                                <mat-radio-button value="single"
+                                  >ตัวเลือกเดียว
+                                </mat-radio-button>
+                                <mat-radio-button
+                                  style="margin-left: 10px;"
+                                  value="multiple"
+                                >
+                                  หลายตัวเลือก
+                                </mat-radio-button>
+                              </mat-radio-group>
+  
+                              <mat-radio-group
+                                aria-label="Select an option"
+                                [(ngModel)]="i.isRequired"
+                              >
+                                <mat-radio-button value="true"
+                                  >บังคับ
+                                </mat-radio-button>
+                                <mat-radio-button
+                                  style="margin-left: 10px;"
+                                  value="false"
+                                >
+                                  ไม่บังคับ
+                                </mat-radio-button>
+                              </mat-radio-group>
+                            </div>
+                          </div>
+  
+                          <div class="col s12">
+                            <div class="col s12">
+                              <span
+                                style="
+                                  position: relative;
+                                  float: left;
+                                  font-size: 1em;
+                                  padding-left: 10px;
+                                  padding-top: 10px;
+                                  margin-right: 15px;
+                                "
+                              >
+                                ช้อยส์คำตอบ
+                              </span>
+                              <cbtn
+                                [label]="'เพิ่ม'"
+                                [color]="'blue'"
+                                (click)="addAnswer(idx)"
+                              >
+                              </cbtn>
+                            </div>
+                          </div>
+  
+                          <div class="col s12">
+                            <div class="col s12" style="padding-left: 40px;">
+                              <span
+                                style="
+                                  position: relative;
+                                  float: left;
+                                  font-size: 1em;
+                                  padding-left: 10px;
+                                  padding-top: 10px;
+                                  margin-right: 15px;
+                                "
+                              >
+                                ช้อยส์คำตอบที่
+                              </span>
+                              <span
+                                style="
+                                  position: relative;
+                                  float: left;
+                                  font-size: 1em;
+                                  padding-left: 10px;
+                                  padding-top: 10px;
+                                  margin-right: 15px;
+                                "
+                              >
+                                ช้อยส์คำตอบ
+                              </span>
+                            </div>
+                          </div>
+  
+                          <div
+                            class="col s12"
+                            *ngFor="
+                              let answer of i.answers;
+                              let answerIdx = index
+                            "
+                          >
+                            <div
+                              class="col s12"
+                              style="padding-left: 40px;"
+                              [hidden]="answer.isActive == false"
+                            >
+                              <span
+                                style="
+                                  position: relative;
+                                  float: left;
+                                  font-size: 1em;
+                                  margin-left: 5px;
+                                  margin-top: 25px;
+                                  text-align: center;
+                                  padding-top: 10px;
+                                  border-radius: 5px;
+                                  margin-right: 15px;
+                                  width: 35px;
+                                  background-color: '#d7d7d7';
+                                "
+                              >
+                                {{ answerIdx + 1 }}
+                              </span>
+  
+                              <!-- start answer -->
+                              <div class="col s10">
+                                <div class="col s8" style="margin-left: 20px;">
+                                  <citxt
+                                    (cModel)="answer.title = $event"
+                                    [data]="answer.title || ''"
+                                  >
+                                  </citxt>
+                                </div>
+                                <div class="col s2" style="margin-top: 20px;">
+                                  <cbtn
+                                    [color]="'red'"
+                                    [icon]="'delete_forever'"
+                                    (click)="removeAnswer(idx, answerIdx)"
+                                  ></cbtn>
+                                </div>
+                              </div>
+                              <!-- end answer -->
+                            </div>
+                          </div>
+                        </div>
+  
+                        <div class="col s12" [hidden]="i.questionType != 'text'">
+                          <div class="col s12">
+                            <div class="row s12">
+                              <span
+                                style="
+                                  position: relative;
+                                  float: left;
+                                  font-size: 1em;
+                                  padding-left: 10px;
+                                  padding-top: 10px;
+                                  margin-right: 15px;
+                                "
+                              >
+                                ข้อบังคับการตอบ
+                              </span>
+                            </div>
+                          </div>
+  
+                          <div
+                            class="col s9"
+                            style="margin-top: 10px; margin-bottom: 10px;"
+                          >
+                            <div style="margin-top: 5px;">
+                              <mat-radio-group
+                                aria-label="Select an option"
+                                [(ngModel)]="i.isRequired"
+                              >
+                                <mat-radio-button value="true"
+                                  >บังคับ
+                                </mat-radio-button>
+                                <mat-radio-button
+                                  style="margin-left: 10px;"
+                                  value="false"
+                                >
+                                  ไม่บังคับ
+                                </mat-radio-button>
+                              </mat-radio-group>
+                            </div>
+                          </div>
+  
+                          <div class="col s6" [hidden]="answer.isActive == false">
+                            <!-- start answer -->
+                            <citxt
+                              (cModel)="i.answers[0].title = $event"
+                              [label]="'คำตอบ'"
+                              [data]="i.answers[0].title || ''"
+                            >
+                            </citxt>
+                            <!-- end answer -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <!-- END: Do Something This Here -->
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col s12">
+        <div class="container">
+          <section class="users-list-wrapper section">
+            <div class="users-list-filter">
+              <div
+                class="card-panel"
+                style="margin-bottom: 0px; margin-top: 0px;"
+              >
+                <!-- BEGIN: Do Something This Here -->
+  
+                <div class="row">
+                  <div
+                    class="col s12"
+                    style="text-align: center; margin-top: 10px;"
+                  >
+                    <cbtn
+                      (click)="checkSave()"
+                      [label]="'บันทึก'"
+                      [color]="'blue'"
+                    ></cbtn>
+                    <cbtn
+                      [label]="'ยกเลิก'"
+                      [color]="'red'"
+                      (click)="back()"
+                    ></cbtn>
+                  </div>
+                </div>
+  
+                <!-- END: Do Something This Here -->
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col s3" style="padding-left: 0px !important;">
+    <div class="row">
+      <div class="col s12">
+        <div class="container">
+          <section class="users-list-wrapper section">
+            <div class="users-list-filter">
+  
+              <!-- Header -->
+              <div class="card-panel" style="margin-bottom: 0px; background-color:lavender; vertical-align: text-top;">
+                <div class="row">
+                  <div class="col s8">
+                    <span style="position: relative; float:left; font-size: 1em; padding-left: 10px; padding-top: 10px;">
+                      ตั้งค่าการแสดงผล *
+                    </span>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="card-panel" style="margin-bottom: 0px; margin-top: 0px;">
+                <div class="row">
+                  <div class="col s12" style="padding-bottom: 40px !important;">
+                    <ccb (cModel)="editModel.isActive = $event" [label]="'เผยแพร่'"
+                      [data]="editModel.isActive"></ccb>
+                    <ccb (cModel)="editModel.isHighlight = $event" [label]="'รายการแนะนำ'"
+                      [data]="editModel.isHighlight"></ccb>
+                    <ccb (cModel)="editModel.isPublic = $event" [label]="'เปิดสาธารณะ'"
+                      [data]="editModel.isPublic"></ccb>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col s3" style="padding-left: 0px !important;">
+    <div class="row">
+      <div class="col s12">
+        <div class="container">
+          <section class="users-list-wrapper section">
+            <div class="users-list-filter">
+              <!-- Header -->
+              <div
+                class="card-panel"
+                style="
+                  margin-bottom: 0px;
+                  background-color: lavender;
+                  vertical-align: text-top;
+                "
+              >
+                <div class="row">
+                  <div class="col s8">
+                    <!-- <i class="material-icons header-icon">
+                                          border_color
+                                      </i> -->
+                    <span
+                      style="
+                        position: relative;
+                        float: left;
+                        font-size: 1em;
+                        padding-left: 10px;
+                        padding-top: 10px;
+                      "
+                    >
+                      สิทธิ์การเห็นเนื้อหา *
+                    </span>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- // <----- Organization -->
+              <div
+                class="card-panel"
+                style="margin-bottom: 0px; margin-top: 0px;"
+              >
+                <div class="row">
+                  <div class="col s12" style="padding-bottom: 40px !important;">
+                    <!-- {{editModel.organization}} -->
+                    <ccb
+                      (cModel)="checkOG($event, 'auto')"
+                      [label]="'แสดงทั้งหมดตามสิทธิ์ที่รับมอบ'"
+                      [data]="editModel.chkAutoOG"
+                    ></ccb>
+                    <ccb
+                      (cModel)="checkOG($event, 'manual')"
+                      [label]="'แสดงเฉพาะหน่วยงานที่เลือก'"
+                      [data]="editModel.chkManualOG"
+                    ></ccb>
+  
+                    <!-- <ccb (cModel)="checkOrganization($event, 'byPass')" [label]="'ผู้ใช้งานทั้งหมด'"
+                                          [data]="editModel.chkByPass"></ccb>
+                                      <ccb (cModel)="checkOrganization($event, 'lv0')" [label]="'ระดับหน่วยงาน'"
+                                          [data]="editModel.chkLv0"></ccb>
+                                      <ccb (cModel)="checkOrganization($event, 'lv1')" [label]="'ระดับจังหวัด'"
+                                          [data]="editModel.chkLv1"></ccb>
+                                      <ccb (cModel)="checkOrganization($event, 'lv2')" [label]="'ระดับอำเภอ/เขต'"
+                                          [data]="editModel.chkLv2"></ccb>
+                                      <ccb (cModel)="checkOrganization($event, 'lv3')" [label]="'ระดับตำบล/แขวง'"
+                                          [data]="editModel.chkLv3"></ccb> -->
+                  </div>
+                </div>
+                <div
+                  class="row"
+                  style="padding-bottom: 40px; margin-top: 0px;"
+                  *ngIf="editModel.chkManualOG && lv0Category.length != 0"
+                >
+                  <div class="col s12">
+                    <label>หน่วยงาน</label>
+                  </div>
+                  <div
+                    class="col s12"
+                    *ngFor="let i of lv0Category; let idx = index"
+                  >
+                    <ccb
+                      (cModel)="readCategoryByLv($event, 'lv0', i)"
+                      [label]="i.title"
+                      [data]="i.check"
+                    ></ccb>
+                  </div>
+                </div>
+                <div
+                  class="row"
+                  style="padding-bottom: 40px; margin-top: 0px;"
+                  *ngIf="editModel.chkManualOG && lv1Category.length != 0"
+                >
+                  <div class="col s12">
+                    <label>เขต</label>
+                  </div>
+                  <div
+                    class="col s12"
+                    *ngFor="let i of lv1Category; let idx = index"
+                  >
+                    <ccb
+                      (cModel)="readCategoryByLv($event, 'lv1', i)"
+                      [label]="i.display"
+                      [data]="i.check"
+                    ></ccb>
+                  </div>
+                </div>
+                <div
+                  class="row"
+                  style="padding-bottom: 40px; margin-top: 0px;"
+                  *ngIf="editModel.chkManualOG && lv2Category.length != 0"
+                >
+                  <div class="col s12">
+                    <label>จังหวัด</label>
+                  </div>
+                  <div
+                    class="col s12"
+                    *ngFor="let i of lv2Category; let idx = index"
+                  >
+                    <ccb
+                      (cModel)="readCategoryByLv($event, 'lv2', i)"
+                      [label]="i.display"
+                      [data]="i.check"
+                    ></ccb>
+                  </div>
+                </div>
+                <div
+                  class="row"
+                  style="padding-bottom: 40px; margin-top: 0px;"
+                  *ngIf="editModel.chkManualOG && lv3Category.length != 0"
+                >
+                  <div class="col s12">
+                    <label>อำเภอ/เขต</label>
+                  </div>
+                  <div
+                    class="col s12"
+                    *ngFor="let i of lv3Category; let idx = index"
+                  >
+                    <ccb
+                      (cModel)="readCategoryByLv($event, 'lv3', i)"
+                      [label]="i.display"
+                      [data]="i.check"
+                    ></ccb>
+                  </div>
+                </div>
+                <div
+                  class="row"
+                  style="padding-bottom: 40px; margin-top: 0px;"
+                  *ngIf="editModel.chkManualOG && lv4Category.length != 0"
+                >
+                  <div class="col s12">
+                    <label>ตำบล/แขวง</label>
+                  </div>
+                  <div
+                    class="col s12"
+                    *ngFor="let i of lv4Category; let idx = index"
+                  >
+                    <ccb
+                      (cModel)="readCategoryByLv($event, 'lv4', i)"
+                      [label]="i.display"
+                      [data]="i.check"
+                    ></ccb>
+                  </div>
+                </div>
+                <!-- <div class="row">
+                                  สิทธิ์การเห็นเนื้อหา * :
+                              </div>
+                              <div class="row">
+                                  <ccb (cModel)="checkOrganization($event, 'byPass')" [label]="'ผู้ใช้งานทั้งหมด'" [data]="editModel.chkByPass"></ccb>
+                                  <ccb (cModel)="checkOrganization($event, 'lv0')" [label]="'ระดับศูนย์'" [data]="editModel.chkLv0"></ccb>
+                                  <ccb (cModel)="checkOrganization($event, 'lv1')" [label]="'ระดับเขต'" [data]="editModel.chkLv1"></ccb>
+                                  <ccb (cModel)="checkOrganization($event, 'lv2')" [label]="'ระดับจังหวัด'" [data]="editModel.chkLv2"></ccb>
+                                  <ccb (cModel)="checkOrganization($event, 'lv3')" [label]="'ระดับสาขา'" [data]="editModel.chkLv3"></ccb>
+                              </div> -->
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+  

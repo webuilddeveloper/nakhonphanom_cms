@@ -1,0 +1,223 @@
+<h5 class="breadcrumbs-title mt-0 mb-0 display-inline hide-on-small-and-down"><span>{{title}}</span></h5>
+<ol class="breadcrumbs mb-0">
+    <li class="breadcrumb-item"><a href="javascript:void(0)">เมนูหลัก</a>
+    </li>
+    <!-- <li class="breadcrumb-item"><a href="javascript:void(0)">ข่าวสารประชาสัมพันธ์</a>
+    </li> -->
+    <li class="breadcrumb-item active">{{title}}
+    </li>
+</ol>
+<br>
+<br>
+<ngx-spinner>
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<!-- BEGIN: Page Main-->
+
+<!-- <div class="row">
+    <div class="col s12">
+        <div class="container">
+            <section class="users-list-wrapper section">
+                <div class="users-list-filter">
+                    <div class="card-panel">
+
+
+                        <div class="row">
+                            {{editModel | json}}
+                        </div>
+
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div> -->
+
+<div class="col s12" style="padding-left: 0px !important;">
+    <div class="row">
+        <div class="col s12">
+            <div class="container">
+                <section class="users-list-wrapper section">
+                    <div class="users-list-filter">
+
+                        <!-- Header -->
+                        <div class="card-panel"
+                            style="margin-bottom: 0px; background-color:lavender; vertical-align: text-top;">
+
+                            <div class="row">
+                                <div class="col s8">
+                                    <i class="material-icons header-icon">
+                                        border_color
+                                    </i>
+                                    <span
+                                        style="position: relative; float:left; font-size: 1em; padding-left: 10px; padding-top: 10px;">
+                                        {{title}}
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card-panel" style="margin-bottom: 0px; margin-top: 0px;">
+
+                            <!-- BEGIN: Do Something This Here -->
+
+                            <div class="row">
+
+                                <div class="col s6">
+
+                                    <div class="col s12">
+                                        <csw [hidden]="!category.approveAction" (cModel)="editModel.isActive = $event"
+                                            [label]="'เผยแพร่'" [data]="editModel.isActive"></csw>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <cinum (cModel)="editModel.sequence = $event" [label]="'ลำดับข้อมูล'"
+                                                [data]="editModel.sequence || 0" [readonly]="code != ''"></cinum>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col s12"
+                                            style="margin-top: -15px !important; padding-bottom: 10px !important;">
+                                            <csop (cModel)="editModel.language = $event" [label]="'ภาษา : '"
+                                                [data]="editModel.language"
+                                                [sources]="[{ value: 'th', display: 'ไทย' }, { value: 'en', display: 'อังกฤษ' }]" [disabled]="code != ''">
+                                            </csop>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col s12" style="padding-bottom: 10px !important;">
+                                            <citxt (cModel)="editModel.title = $event" [label]="'หัวข้อ : '"
+                                                [data]="editModel.title || ''" [readonly]="code != ''"></citxt>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col s3">
+                                    <div class="col s12">
+                                        <cds (cModel)="editModel.image = $event"
+                                            [label]="'รูปปก (คลิกเลือกภาพ/ลากวางภาพที่นี่)'"
+                                            [data]="[{ imageUrl: this.editModel.imageUrl || '' }]" [code]="'policy'" [readonly]="code != ''"></cds>
+                                    </div>
+                                    <div class="col s12" style="color: red;padding-top: 20px;">
+                                        <span>*Maximum 10 MB</span>
+                                    </div>
+                                </div>
+
+                                <div class="col s3">
+                                    <div class="col s12">
+                                        <span
+                                            style="position: relative; float:left; font-size: 1em; padding-bottom: 5px; padding-top: 10px;">
+                                            ข้อบังคับ
+                                        </span>
+                                    </div>
+
+                                    <div class="col s12">
+                                        <mat-radio-group aria-label="Select an option"
+                                            [(ngModel)]="editModel.isRequired" [disabled]="code != ''">
+                                            <mat-radio-button value="true">บังคับ
+                                            </mat-radio-button>
+                                            <mat-radio-button style="margin-left:10px" value="false">
+                                                ไม่บังคับ
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- END: Do Something This Here -->
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <div class="container">
+                <section class="users-list-wrapper section">
+                    <div class="users-list-filter">
+
+                        <!-- Header -->
+                        <div class="card-panel"
+                            style="margin-bottom: 0px; background-color:lavender; vertical-align: text-top;">
+
+                            <div class="row">
+                                <div class="col s8">
+                                    <i class="material-icons header-icon">
+                                        border_color
+                                    </i>
+                                    <span
+                                        style="position: relative; float:left; font-size: 1em; padding-left: 10px; padding-top: 10px;">
+                                        รายละเอียด
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-panel" style="margin-bottom: 0px; margin-top: 0px;">
+
+                            <!-- BEGIN: Do Something This Here -->
+
+                            <div class="row">
+                                <div class="col s6">
+
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <!-- <textarea [(ngModel)]="editModel.description" class="materialize-textarea" readonly></textarea> -->
+                                            <ctxte (cModel)="editModel.description = $event" [label]="'รายละเอียด : '"
+                                                [data]="editModel.description || ''" [editable]="code == ''"></ctxte>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- END: Do Something This Here -->
+
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12">
+        <div class="container">
+            <section class="users-list-wrapper section">
+                <div class="users-list-filter">
+                    <div class="card-panel" style="margin-bottom: 0px; margin-top: 0px;">
+
+                        <!-- BEGIN: Do Something This Here -->
+
+                        <div class="row" [hidden]="isSaveSuccess">
+                            <div class="col s12" style="text-align: center; margin-top: 10px;">
+                                <cbtn [hidden]="code != ''" (click)="create()" [label]="'บันทึก'" [color]="'blue'"></cbtn>
+                                <cbtn [hidden]="code == ''" (click)="update()" [label]="'บันทึก'" [color]="'blue'"></cbtn>
+                                <cbtn [label]="'ยกเลิก'" [color]="'red'" (click)="back()"></cbtn>
+                            </div>
+                        </div>
+
+                        <!-- END: Do Something This Here -->
+
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- END: Page Main-->

@@ -1,0 +1,314 @@
+<h5 class="breadcrumbs-title mt-0 mb-0 display-inline hide-on-small-and-down"><span>{{title}}</span></h5>
+<ol class="breadcrumbs mb-0">
+    <li class="breadcrumb-item"><a href="javascript:void(0)">จัดการสมาชิก</a>
+    </li>
+    <li class="breadcrumb-item"><a href="javascript:void(0)">องค์กร</a>
+    </li>
+    <li class="breadcrumb-item"><a href="javascript:void(0)">{{title}}</a>
+    </li>
+</ol>
+<br>
+<br>
+<ngx-spinner>
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
+
+<div class="row">
+
+    <!-- {{editModel | json}} -->
+
+    <div class="col s12" [hidden]="importExcel">
+        <div class="container">
+            <section class="users-list-wrapper section" style="padding-top: 0px; padding-bottom: 0px;">
+                <div class="users-list-filter">
+
+                    <!-- Header -->
+                    <div class="card-panel"
+                        style="margin-bottom: 0px; background-color:lavender; vertical-align: text-top;">
+
+                        <div class="row">
+                            <div class="col s2">
+                                <span class="material-icons header-icon">
+                                    border_color
+                                </span>
+                                <span
+                                    style="position: relative; float:left; font-size: 1em; padding-left: 10px; padding-top: 10px;">
+                                    {{title}}
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-panel" style="margin-bottom: 0px; margin-top: 0px;">
+
+                        <!-- BEGIN: Do Something This Here -->
+
+                        <div class="row">
+
+                            <div class="col s6">
+
+                                <div class="col s12">
+                                    <csw (cModel)="editModel.isActive = $event" [label]="'ใช้งาน'"
+                                        [data]="editModel.isActive"></csw>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <cinum (cModel)="editModel.sequence = $event" [label]="'ลำดับข้อมูล'"
+                                            [data]="editModel.sequence || 0"></cinum>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <csop (cModel)="readCategoryByLv($event, 'lv0')" [label]="'หน่วยงาน : '"
+                                            [data]="editModel.lv0" [sources]="lv0Category">
+                                        </csop>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12" style="margin-top: 20px !important;">
+                                        <csop (cModel)="readCategoryByLv($event, 'lv1')" [label]="'เขต : '"
+                                            [data]="editModel.lv1" [sources]="lv1Category">
+                                        </csop>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12" style="margin-top: 20px !important;">
+                                        <csop (cModel)="readCategoryByLv($event, 'lv2')" [label]="'จังหวัด : '"
+                                            [data]="editModel.lv2" [sources]="lv2Category">
+                                        </csop>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12" style="margin-top: 20px !important;">
+                                        <csop (cModel)="editModel.lv3 = $event" [label]="'อำเภอ/เขต : '"
+                                            [data]="editModel.lv3" [sources]="lv3Category">
+                                        </csop>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12" style="margin-top: 20px !important;">
+                                        <citxt (cModel)="editModel.codeShort = $event" [label]="'รหัสตำบล/แขวง'"
+                                            [data]="editModel.codeShort || ''"></citxt>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <citxt (cModel)="editModel.titleShort = $event" [label]="'ชื่อย่อตำบล/แขวง'"
+                                            [data]="editModel.titleShort || ''"></citxt>
+                                    </div>
+                                </div>
+                                
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <citxt (cModel)="editModel.title = $event" [label]="'ชื่อตำบล/แขวง ภาษาไทย : '"
+                                            [data]="editModel.title || ''"></citxt>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <citxt (cModel)="editModel.titleEN = $event"
+                                            [label]="'ชื่อตำบล/แขวง ภาษาอังกฤษ : '" [data]="editModel.titleEN || ''">
+                                        </citxt>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                       
+                        <!-- END: Do Something This Here -->
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+                            <cbtn [label]="'บันทึก'" [color]="'blue'" (click)="create()" [hidden]="code != ''"></cbtn>
+                            <cbtn [label]="'บันทึก'" [color]="'blue'" (click)="update()" [hidden]="code == ''"></cbtn>
+                            <cbtn [label]="'ยกเลิก'" [color]="'red'" (click)="back()"></cbtn>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="col s12" [hidden]="!importExcel">
+        <div class="container">
+            <section class="users-list-wrapper section" style="padding-top: 0px; padding-bottom: 0px;">
+                <div class="users-list-filter">
+
+                    <!-- Header -->
+                    <div class="card-panel"
+                        style="margin-bottom: 0px; background-color:lavender; vertical-align: text-top;">
+
+                        <div class="row">
+                            <div class="col s2">
+                                <span class="material-icons header-icon">
+                                    border_color
+                                </span>
+                                <span
+                                    style="position: relative; float:left; font-size: 1em; padding-left: 10px; padding-top: 10px;">
+                                    {{title}}
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-panel" style="margin-bottom: 0px; margin-top: 0px;">
+
+                        <!-- BEGIN: Do Something This Here -->
+
+                        <div class="row">
+
+                            <div class="col s6">
+
+                                <div class="col s12">
+                                    <csw (cModel)="editModel.isActive = $event" [label]="'ใช้งาน'"
+                                        [data]="editModel.isActive"></csw>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <cinum (cModel)="editModel.sequence = $event" [label]="'ลำดับข้อมูล'"
+                                            [data]="editModel.sequence || 0"></cinum>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <csop (cModel)="readCategoryByLv($event, 'lv0')" [label]="'หน่วยงาน : '"
+                                            [data]="editModel.lv0" [sources]="lv0Category">
+                                        </csop>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12" style="margin-top: 20px !important;">
+                                        <csop (cModel)="readCategoryByLv($event, 'lv1')" [label]="'เขต : '"
+                                            [data]="editModel.lv1" [sources]="lv1Category">
+                                        </csop>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12" style="margin-top: 20px !important;">
+                                        <csop (cModel)="readCategoryByLv($event, 'lv2')" [label]="'จังหวัด : '"
+                                            [data]="editModel.lv2" [sources]="lv2Category">
+                                        </csop>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12" style="margin-top: 20px !important;">
+                                        <csop (cModel)="editModel.lv3 = $event" [label]="'อำเภอ/เขต : '"
+                                            [data]="editModel.lv3" [sources]="lv3Category">
+                                        </csop>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12" style="padding: 24px;">
+                                        <input type="file" (change)="onFileChange($event)" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div style="overflow-x:auto;">
+                            <table id="users-list-datatable" class="bordered centered striped">
+                                <thead>
+                                    <tr>
+                                        <!-- <th>
+                                            <span class="header-checkbox">
+                                                <label>
+                                                    <input type="checkbox" [(ngModel)]="itemSelected"
+                                                        (change)="checkUncheckAll()" />
+                                                    <span style="padding-left: 20px;"></span>
+                                                </label>
+                                            </span>
+                                        </th> -->
+                                        <th>ลำดับ</th>
+                                        <th>รหัสอำเภอ/เขต</th>
+                                        <th>ชื่อย่ออำเภอ/เขต</th>
+                                        <th>ชื่ออำเภอ/เขตภาษาไทย</th>
+                                        <th>ชื่ออำเภอ/เขตภาษาอังกฤษ</th>
+                                        <!-- <th>จัดการ</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let i of listData; let idx = index">
+                                        <!-- <td [hidden]="!checkPermission(i.category, 'deleteAction')">
+                                            <div class="w10">
+                                                <label>
+                                                    <input type="checkbox" [(ngModel)]="i.isSelected"
+                                                        (change)="isAllSelected(i.category, 'deleteAction')" />
+                                                    <span style="padding-left: 20px;"></span>
+                                                </label>
+                                            </div>
+                                        </td> -->
+                                        <td>
+                                            <div class="w30">
+                                                {{idx + 1}}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="w200">
+                                                <a href="javascript:void(0)"><p class="cut-text">{{i.codeShort}}</p></a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="w200">
+                                                <a href="javascript:void(0)"><p class="cut-text">{{i.titleShort}}</p></a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="w200">
+                                                <a href="javascript:void(0)"><p class="cut-text">{{i.title}}</p></a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="w200">
+                                                <a href="javascript:void(0)"><p class="cut-text">{{i.titleEN}}</p></a>
+                                            </div>
+                                        </td>
+                                        <!-- <td>
+                                            <div class="w150">
+                                                <cbtne [label]="'แก้ไข'"></cbtne>
+                                            </div>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                        </div>
+
+                        <!-- END: Do Something This Here -->
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+                            <cbtn [label]="'บันทึก'" [color]="'blue'" (click)="createImport()"></cbtn>
+                            <cbtn [label]="'ยกเลิก'" [color]="'red'" (click)="back()"></cbtn>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>

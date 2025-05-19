@@ -1,0 +1,13 @@
+<h5 class="breadcrumbs-title mt-0 mb-0 display-inline hide-on-small-and-down"><span>นโยบายการตลาด</span></h5>
+<ol class="breadcrumbs mb-0">
+    <li class="breadcrumb-item"><a href="javascript:void(0)">สถิติและภาพรวม</a>
+    </li>
+    <li class="breadcrumb-item active">นโยบายการตลาด
+    </li>
+</ol>
+<br>
+<br>
+
+<!-- {{paginationModel.totalItems}} -->
+<app-policy-marketing-criteria (messageToEmit)="getMessageCriteria($event)"></app-policy-marketing-criteria>
+<app-policy-marketing-list [paginationModel]="paginationModel" [messageInput]="listModel" (messageToEmit)="getMessageList($event)"></app-policy-marketing-list>

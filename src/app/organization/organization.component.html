@@ -1,0 +1,268 @@
+<h5 class="breadcrumbs-title mt-0 mb-0 display-inline hide-on-small-and-down"><span>องค์กร</span></h5>
+<ol class="breadcrumbs mb-0">
+    <li class="breadcrumb-item"><a href="javascript:void(0)">จัดการสมาชิก</a>
+    </li>
+    <li class="breadcrumb-item"><a href="javascript:void(0)">องค์กร</a>
+    </li>
+</ol>
+<br>
+<br>
+<ngx-spinner>
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<div class="row">
+
+    <div class="col s3">
+        <div class="container">
+            <section class="users-list-wrapper section">
+                <div class="users-list-filter">
+                    <div class="card-panel">
+
+                        <!-- BEGIN: Do Something This Here -->
+                        <div>
+                            <div class="row">
+
+                                <div class="col s12">
+                                    <span>กลุ่มองค์กร</span>
+                                </div>
+
+                                <div class="col s12">
+                                    <citxt (cModel)="editModel.lv0 = $event" [label]="'ชื่อ : '"></citxt>
+                                </div>
+
+                                <div class="col s12">
+                                    <cbtnl (click)="addLv0(editModel.lv0)" [label]="'เพิ่ม'"></cbtnl>
+                                </div>
+
+                                <div class="col s12">
+                                    <div class="responsive-table">
+                                        <table id="users-list-datatable" class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>ชื่อ</th>
+                                                    <th>ลบ</th>
+                                                    <!-- <th>ลบ</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let i of lv0; let idx = index">
+                                                    <td>{{idx + 1}}</td>
+                                                    <td><a href="javascript:void(0)"><p>{{i.title}}</p></a></td>
+                                                    <td><cbtnd (click)="delete(i, idx, 0)"></cbtnd></td>
+                                                    <!-- <td><cbtnd (click)="delete(i, idx)"></cbtnd></td> -->
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- END: Do Something This Here -->
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="col s3">
+        <div class="container">
+            <section class="users-list-wrapper section">
+                <div class="users-list-filter">
+                    <div class="card-panel">
+
+                        <!-- BEGIN: Do Something This Here -->
+                        <div>
+                            <div class="row">
+
+                                <div class="col s12">
+                                    <span>ระดับ 1</span>
+                                </div>
+
+                                <div class="col s12">
+                                    <citxt (cModel)="editModel.lv1 = $event" [label]="'ชื่อ : '"></citxt>
+                                </div>
+
+                                <div class="col s12">
+                                    <cbtnl (click)="addLv1(editModel.lv1)" [label]="'เพิ่ม'"></cbtnl>
+                                </div>
+
+                                <div class="col s12">
+                                    <div class="responsive-table">
+                                        <table id="users-list-datatable" class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>ชื่อ</th>
+                                                    <th>ลบ</th>
+                                                    <!-- <th>ลบ</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let i of lv1; let idx = index">
+                                                    <td>{{idx + 1}}</td>
+                                                    <td><a href="javascript:void(0)"><p>{{i.title}}</p></a></td>
+                                                    <td><cbtnd (click)="delete(i, idx, 1)"></cbtnd></td>
+                                                    <!-- <td><cbtnd (click)="delete(i, idx)"></cbtnd></td> -->
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- END: Do Something This Here -->
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="col s3">
+        <div class="container">
+            <section class="users-list-wrapper section">
+                <div class="users-list-filter">
+                    <div class="card-panel">
+
+                        <!-- BEGIN: Do Something This Here -->
+
+                        <div>
+                            <div class="row">
+
+                                <div class="col s12">
+                                    <span>ระดับ 2</span>
+                                </div>
+
+                                <div class="col s12">
+                                    <citxt (cModel)="editModel.lv2 = $event" [label]="'ชื่อ : '"></citxt>
+                                </div>
+
+                                <div class="col s12">
+                                    <cbtnl (click)="addLv2(editModel.lv2)" [label]="'เพิ่ม'"></cbtnl>
+                                </div>
+
+                                <div class="col s12">
+                                    <div class="responsive-table">
+                                        <table id="users-list-datatable" class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>ชื่อ</th>
+                                                    <th>ลบ</th>
+                                                    <!-- <th>ลบ</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let i of lv2; let idx = index">
+                                                    <td>{{idx + 1}}</td>
+                                                    <td><a href="javascript:void(0)"><p>{{i.title}}</p></a></td>
+                                                    <td><cbtnd (click)="delete(i, idx, 2)"></cbtnd></td>
+                                                    <!-- <td><cbtnd (click)="delete(i, idx)"></cbtnd></td> -->
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- END: Do Something This Here -->
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="col s3">
+        <div class="container">
+            <section class="users-list-wrapper section">
+                <div class="users-list-filter">
+                    <div class="card-panel">
+
+                        <!-- BEGIN: Do Something This Here -->
+
+                        <div>
+                            <div class="row">
+
+                                <div class="col s12">
+                                    <span>ระดับ 3</span>
+                                </div>
+
+                                <div class="col s12">
+                                    <citxt (cModel)="editModel.lv3 = $event" [label]="'ชื่อ : '"></citxt>
+                                </div>
+
+                                <div class="col s12">
+                                    <cbtnl (click)="addLv3(editModel.lv3)" [label]="'เพิ่ม'"></cbtnl>
+                                </div>
+
+                                <div class="col s12">
+                                    <div class="responsive-table">
+                                        <table id="users-list-datatable" class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>ชื่อ</th>
+                                                    <th>ลบ</th>
+                                                    <!-- <th>ลบ</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let i of lv3; let idx = index">
+                                                    <td>{{idx + 1}}</td>
+                                                    <td><a href="javascript:void(0)"><p>{{i.title}}</p></a></td>
+                                                    <td><cbtnd (click)="delete(i, idx, 3)"></cbtnd></td>
+                                                    <!-- <td><cbtnd (click)="delete(i, idx)"></cbtnd></td> -->
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- END: Do Something This Here -->
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col s12">
+        <div class="container">
+            <section class="users-list-wrapper section">
+                <div class="users-list-filter">
+                    <div class="card-panel">
+
+                        <!-- BEGIN: Do Something This Here -->
+
+                        <div class="row">
+                            <div class="col s10"></div>
+                            <div class="col s2">
+                                <cbtn (click)="create()" [label]="'บันทึก'"></cbtn>
+                            </div>
+                        </div>
+
+                        <!-- END: Do Something This Here -->
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- END: Page Main-->

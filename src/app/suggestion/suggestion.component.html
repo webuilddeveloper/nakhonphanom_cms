@@ -1,0 +1,15 @@
+<h5 class="breadcrumbs-title mt-0 mb-0 display-inline hide-on-small-and-down"><span>ข้อเสนอแนะ</span></h5>
+<ol class="breadcrumbs mb-0">
+    <li class="breadcrumb-item"><a href="javascript:void(0)">เมนูหลัก</a>
+    </li>
+    <li class="breadcrumb-item active">ข้อเสนอแนะ
+    </li>
+</ol>
+<br>
+<br>
+<br>
+<!-- {{paginationModel.totalItems}} -->
+<app-suggestion-criteria [paginationModel]="paginationModel" (messageToEmit)="getMessageCriteria($event)"></app-suggestion-criteria>
+<app-suggestion-list [paginationModel]="paginationModel" [messageInput]="listModel" (messageToEmit)="getMessageList($event)"></app-suggestion-list>
+
+

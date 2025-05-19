@@ -1,0 +1,11 @@
+<h5 class="breadcrumbs-title mt-0 mb-0 display-inline hide-on-small-and-down"><span>สมาชิกทั่วไปที่ยอมรับนโยบายแอพพลิเคชัน</span></h5>
+<ol class="breadcrumbs mb-0">
+    <li class="breadcrumb-item"><a href="javascript:void(0)">จัดการสมาชิก</a>
+    </li>
+    <li class="breadcrumb-item active">สมาชิกทั่วไปที่ยอมรับนโยบายแอพพลิเคชัน
+    </li>
+</ol>
+<br>
+<br>
+<app-member-mobile-policy-application-criteria (messageToEmit)="getMessageCriteria($event)"></app-member-mobile-policy-application-criteria>
+<app-member-mobile-policy-application-list [paginationModel]="paginationModel" [messageInput]="listModel" (messageToEmit)="getMessageList($event)"></app-member-mobile-policy-application-list>

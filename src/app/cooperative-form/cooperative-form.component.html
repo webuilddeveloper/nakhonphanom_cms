@@ -1,0 +1,14 @@
+<h5 class="breadcrumbs-title mt-0 mb-0 display-inline hide-on-small-and-down"><span>แบบฟอร์มตำรวจ</span></h5>
+<ol class="breadcrumbs mb-0">
+    <li class="breadcrumb-item"><a href="javascript:void(0)">เมนูหลัก</a>
+    </li>
+    <li class="breadcrumb-item active">แบบฟอร์มตำรวจ
+    </li>
+</ol>
+<br>
+<br>
+<!-- {{paginationModel.totalItems}} -->
+<app-cooperative-form-criteria [paginationModel]="paginationModel" (messageToEmit)="getMessageCriteria($event)"></app-cooperative-form-criteria>
+<app-cooperative-form-list [paginationModel]="paginationModel" [messageInput]="listModel" (messageToEmit)="getMessageList($event)"></app-cooperative-form-list>
+
+

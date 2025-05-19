@@ -1,0 +1,12 @@
+<h5 class="breadcrumbs-title mt-0 mb-0 display-inline hide-on-small-and-down"><span>ส่งแจ้งเตือนไปยังสมาชิก</span></h5>
+<ol class="breadcrumbs mb-0">
+    <li class="breadcrumb-item"><a href="javascript:void(0)">เมนูหลัก</a>
+    </li>
+    <li class="breadcrumb-item active">ส่งแจ้งเตือนไปยังสมาชิก
+    </li>
+</ol>
+<br>
+<br>
+<app-notification-criteria (messageToEmit)="getMessageCriteria($event)"></app-notification-criteria>
+<app-notification-list [paginationModel]="paginationModel" [messageInput]="listModel" (messageToEmit)="getMessageList($event)"></app-notification-list>
+

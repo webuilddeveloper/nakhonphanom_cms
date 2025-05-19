@@ -1,0 +1,904 @@
+<h5 class="breadcrumbs-title mt-0 mb-0 display-inline hide-on-small-and-down"><span>องค์กร</span></h5>
+<ol class="breadcrumbs mb-0">
+    <li class="breadcrumb-item"><a href="javascript:void(0)">จัดการสมาชิก</a>
+    </li>
+    <li class="breadcrumb-item"><a href="javascript:void(0)">องค์กร</a>
+    </li>
+</ol>
+<br>
+<br>
+<ngx-spinner>
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
+
+<!-- Lv0 -->
+<div class="row">
+
+    <div class="col s12">
+        <div class="container">
+            <section class="users-list-wrapper section" style="padding-top: 0px; padding-bottom: 0px;">
+                <div class="users-list-filter">
+
+                    <!-- Header -->
+                    <div class="card-panel"
+                        style="margin-bottom: 0px; background-color:lavender; vertical-align: text-top;">
+
+                        <div class="row">
+                            <div class="col s2">
+                                <span class="material-icons header-icon">
+                                    featured_play_list
+                                </span>
+                                <span
+                                    style="position: relative; float:left; font-size: 1em; padding-left: 10px; padding-top: 10px;">
+                                    ประเภทสมาชิก
+                                </span>
+                            </div>
+                            <div class="col s10" style="text-align: right;">
+                                <cbtn [label]="'import'" [color]="'green'" [icon]="'add_circle_outline'"
+                                    (click)="import('lv0')"></cbtn>
+                                <cbtn [label]="'เพิ่มข้อมูล'" [color]="'blue'" [icon]="'add_circle_outline'"
+                                    (click)="create('lv0')"></cbtn>
+                                <cbtn [label]="'ลบข้อมูล'" [color]="'red'" [icon]="'delete'" (click)="delete('lv0')">
+                                </cbtn>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Detail -->
+                    <div class="card-panel" style="margin-bottom: 0px; margin-top: 0px;">
+
+                        <!-- BEGIN: Do Something This Here -->
+
+                        <div class="row">
+
+                            <div class="col s12">
+                                <div class="col s2">
+                                    <csop (cModel)="readPerPage($event, 'lv0')" [label]="'แสดง'" [data]="'10'"
+                                        [sources]="[{ value: '5', display: '5'},{ value: '10', display: '10'},{ value: '50', display: '50'},{ value: '100', display: '100'}]">
+                                    </csop>
+                                </div>
+                                <div class="col s7">
+
+                                </div>
+                                <div class="col s3">
+                                    <citxt (keyup.enter)="read(searchModel.lv0, 'lv0')" (cModel)="searchModel.lv0 = $event" [label]="'ค้นหา'" [data]="searchModel.keySearch"></citxt>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">     
+
+                            <div class="col s12">
+                                <div style="overflow-x:auto;">
+                                    <table id="users-list-datatable" class="bordered centered striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <div class="w20">
+                                                        <span class="header-checkbox">
+                                                            <label>
+                                                                <input type="checkbox" [(ngModel)]="checkAllLv0"
+                                                                    (change)="checkAll('lv0')" />
+                                                                <span></span>
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                </th>
+                                                <th>ลำดับ</th>
+                                                <th>จัดการ</th>
+                                                <th>สถานะ</th>
+                                                <th>รูปภาพ</th>
+                                                <th>ชื่อหน่วยงาน</th>
+                                                <th>อัพเดทวันที่</th>
+                                                <th>อัพเดทโดย</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let i of lv0; let idx = index">
+                                                <td>
+                                                    <div class="w20">
+                                                        <label>
+                                                            <input type="checkbox" [(ngModel)]="i.isSelected" />
+                                                            <span></span>
+                                                        </label>
+                                                    </div>
+                                                    <!-- <div class="w10">
+                                                        <span class="header-checkbox">
+                                                            <label>
+                                                                <input type="checkbox" [(ngModel)]="i.isSelected" />
+                                                                <span style="padding-left: 20px;"></span>
+                                                            </label>
+                                                        </span>
+                                                    </div> -->
+                                                </td>
+                                                <td>
+                                                    <div class="w30">
+                                                        {{((paginationLModelLv0.currentPage - 1) * paginationLModelLv0.itemsPerPage) + (idx + 1)}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w75">
+                                                        <cbtne (click)="update(i.code, 'lv0')" [label]="'แก้ไขข้อมูล'"></cbtne>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100" [hidden]="!i.isActive">
+                                                        <span class="chip green lighten-5">
+                                                            <span class="green-text">ตรวจสอบแล้ว</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="w100" [hidden]="i.isActive">
+                                                        <span class="chip red lighten-5">
+                                                            <span class="red-text">รอตรวจสอบ</span>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w75">
+                                                        <img [src]="i.imageUrl" style="width:75px !important; height:75px !important">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w150">
+                                                        <a href="javascript:void(0)">
+                                                            <p>{{i.title}}</p>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100">
+                                                        {{i.updateDate | datetimeFormat}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100">
+                                                        {{i.updateBy}}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col s6">
+                                <ul>
+                                    <li>{{calLv0}}</li>
+                                </ul>
+                            </div>
+                            <div class="col s6">
+                                <!-- <----- Pagination -->
+                                <div style="text-align: right;">
+                                    <ul>
+                                        <li *ngFor="let item of [] | paginate: paginationLModelLv0"></li>
+                                    </ul>
+                                    <pagination-controls (pageChange)="readCurrentPage($event, 'lv0')" id="lv0"
+                                        previousLabel="ก่อนหน้า" nextLabel="ถัดไป"></pagination-controls>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- END: Do Something This Here -->
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+
+<!-- Lv1 -->
+<div class="row">
+
+    <div class="col s12">
+        <div class="container">
+            <section class="users-list-wrapper section" style="padding-top: 0px; padding-bottom: 0px;">
+                <div class="users-list-filter">
+
+                    <!-- Header -->
+                    <div class="card-panel"
+                        style="margin-bottom: 0px; margin-top: 0px; background-color:lavender; vertical-align: text-top;">
+
+                        <div class="row">
+                            <div class="col s2">
+                                <span class="material-icons header-icon">
+                                    featured_play_list
+                                </span>
+                                <span
+                                    style="position: relative; float:left; font-size: 1em; padding-left: 10px; padding-top: 10px;">
+                                    เขต
+                                </span>
+                            </div>
+                            <div class="col s10" style="text-align: right;">
+                                <cbtn [label]="'import'" [color]="'green'" [icon]="'add_circle_outline'"
+                                    (click)="import('lv1')"></cbtn>
+                                <cbtn [label]="'เพิ่มข้อมูล'" [color]="'blue'" [icon]="'add_circle_outline'"
+                                    (click)="create('lv1')"></cbtn>
+                                <cbtn [label]="'ลบข้อมูล'" [color]="'red'" [icon]="'delete'" (click)="delete('lv1')">
+                                </cbtn>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Detail -->
+                    <div class="card-panel" style="margin-bottom: 0px; margin-top: 0px;">
+
+                        <!-- BEGIN: Do Something This Here -->
+
+                        <div class="row">
+
+                            <div class="col s12">
+                                <div class="col s2">
+                                    <csop (cModel)="readPerPage($event, 'lv1')" [label]="'แสดง'" [data]="'10'"
+                                        [sources]="[{ value: '5', display: '5'},{ value: '10', display: '10'},{ value: '50', display: '50'},{ value: '100', display: '100'}]">
+                                    </csop>
+                                </div>
+                                <div class="col s7">
+
+                                </div>
+                                <div class="col s3">
+                                    <citxt (keyup.enter)="read(searchModel.lv1, 'lv1')" (cModel)="searchModel.lv1 = $event" [label]="'ค้นหา'" [data]="searchModel.keySearch"></citxt>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col s12">
+                                <div style="overflow-x:auto;">
+                                    <table id="users-list-datatable" class="bordered centered striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <div class="w20">
+                                                        <span class="header-checkbox">
+                                                            <label>
+                                                                <input type="checkbox" [(ngModel)]="checkAllLv1"
+                                                                    (change)="checkAll('lv1')" />
+                                                                <span style="padding-left: 20px;"></span>
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                    
+                                                </th>
+                                                <th>ลำดับ</th>
+                                                <th>จัดการ</th>
+                                                <th>สถานะ</th>
+                                                <th>ชื่อหน่วยงาน</th>
+                                                <th>ชื่อเขต</th>
+                                                <th>อัพเดทวันที่</th>
+                                                <th>อัพเดทโดย</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let i of lv1; let idx = index">
+                                                <td>
+                                                    <div class="w20">
+                                                        <label>
+                                                            <input type="checkbox" [(ngModel)]="i.isSelected" />
+                                                            <span style="padding-left: 20px;"></span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w30">
+                                                        {{((paginationLModelLv1.currentPage - 1) * paginationLModelLv1.itemsPerPage) + (idx + 1)}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w75">
+                                                        <cbtne (click)="update(i.code, 'lv1')" [label]="'แก้ไขข้อมูล'"></cbtne>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100" [hidden]="!i.isActive">
+                                                        <span class="chip green lighten-5">
+                                                            <span class="green-text">ตรวจสอบแล้ว</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="w100" [hidden]="i.isActive">
+                                                        <span class="chip red lighten-5">
+                                                            <span class="red-text">รอตรวจสอบ</span>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w150">
+                                                        <a href="javascript:void(0)">
+                                                            <p>{{i.lv0List[0].title}}</p>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w150">
+                                                        <a href="javascript:void(0)">
+                                                            <p>{{i.title}}</p>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100">
+                                                        {{i.updateDate | datetimeFormat}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100">
+                                                        {{i.updateBy}}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col s6">
+                                <ul>
+                                    <li>{{calLv1}}</li>
+                                </ul>
+                            </div>
+                            <div class="col s6">
+                                <!-- <----- Pagination -->
+                                <div style="text-align: right;">
+                                    <ul>
+                                        <li *ngFor="let item of [] | paginate: paginationLModelLv1"></li>
+                                    </ul>
+                                    <pagination-controls (pageChange)="readCurrentPage($event, 'lv1')" id="lv1"
+                                        previousLabel="ก่อนหน้า" nextLabel="ถัดไป"></pagination-controls>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <!-- END: Do Something This Here -->
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+
+<!-- Lv2 -->
+<div class="row">
+
+    <div class="col s12">
+        <div class="container">
+            <section class="users-list-wrapper section" style="padding-top: 0px; padding-bottom: 0px;">
+                <div class="users-list-filter">
+
+                    <!-- Header -->
+                    <div class="card-panel"
+                        style="margin-bottom: 0px; margin-top: 0px; background-color:lavender; vertical-align: text-top;">
+
+                        <div class="row">
+                            <div class="col s2">
+                                <span class="material-icons header-icon">
+                                    featured_play_list
+                                </span>
+                                <span
+                                    style="position: relative; float:left; font-size: 1em; padding-left: 10px; padding-top: 10px;">
+                                    จังหวัด
+                                </span>
+                            </div>
+                            <div class="col s10" style="text-align: right;">
+                                <cbtn [label]="'import'" [color]="'green'" [icon]="'add_circle_outline'"
+                                    (click)="import('lv2')"></cbtn>
+                                <cbtn [label]="'เพิ่มข้อมูล'" [color]="'blue'" [icon]="'add_circle_outline'"
+                                    (click)="create('lv2')"></cbtn>
+                                <cbtn [label]="'ลบข้อมูล'" [color]="'red'" [icon]="'delete'" (click)="delete('lv2')">
+                                </cbtn>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Detail -->
+                    <div class="card-panel" style="margin-bottom: 0px; margin-top: 0px;">
+
+                        <!-- BEGIN: Do Something This Here -->
+
+                        <div class="row">
+
+                            <div class="col s12">
+                                <div class="col s2">
+                                    <csop (cModel)="readPerPage($event, 'lv2')" [label]="'แสดง'" [data]="'10'"
+                                        [sources]="[{ value: '5', display: '5'},{ value: '10', display: '10'},{ value: '50', display: '50'},{ value: '100', display: '100'}]">
+                                    </csop>
+                                </div>
+                                <div class="col s7">
+
+                                </div>
+                                <div class="col s3">
+                                    <citxt (keyup.enter)="read(searchModel.lv2, 'lv2')" (cModel)="searchModel.lv2 = $event" [label]="'ค้นหา'" [data]="searchModel.keySearch"></citxt>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col s12">
+                                <div style="overflow-x:auto;">
+                                    <table id="users-list-datatable" class="bordered centered striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <div class="w20">
+                                                        <span class="header-checkbox">
+                                                            <label>
+                                                                <input type="checkbox" [(ngModel)]="checkAllLv2"
+                                                                    (change)="checkAll('lv2')" />
+                                                                <span style="padding-left: 20px;"></span>
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                   
+                                                </th>
+                                                <th>ลำดับ</th>
+                                                <th>จัดการ</th>
+                                                <th>สถานะ</th>
+                                                <th>ชื่อเขต</th>
+                                                <th>ชื่อจังหวัด</th>
+                                                <th>อัพเดทวันที่</th>
+                                                <th>อัพเดทโดย</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let i of lv2; let idx = index">
+                                                <td>
+                                                    <div class="w20">
+                                                        <label>
+                                                            <input type="checkbox" [(ngModel)]="i.isSelected" />
+                                                            <span style="padding-left: 20px;"></span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w30">
+                                                        {{((paginationLModelLv2.currentPage - 1) * paginationLModelLv2.itemsPerPage) + (idx + 1)}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w75">
+                                                        <cbtne (click)="update(i.code, 'lv2')" [label]="'แก้ไขข้อมูล'"></cbtne>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100" [hidden]="!i.isActive">
+                                                        <span class="chip green lighten-5">
+                                                            <span class="green-text">ตรวจสอบแล้ว</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="w100" [hidden]="i.isActive">
+                                                        <span class="chip red lighten-5">
+                                                            <span class="red-text">รอตรวจสอบ</span>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w150">
+                                                        <a href="javascript:void(0)">
+                                                            <p>{{i.lv1List[0].title}}</p>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w150">
+                                                        <a href="javascript:void(0)">
+                                                            <p>{{i.title}}</p>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100">
+                                                        {{i.updateDate | datetimeFormat}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100">
+                                                        {{i.updateBy}}
+                                                    </div>
+                                                </td>
+                                               
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col s6">
+                                <ul>
+                                    <li>{{calLv2}}</li>
+                                </ul>
+                            </div>
+                            <div class="col s6">
+                                <!-- <----- Pagination -->
+                                <div style="text-align: right;">
+                                    <ul>
+                                        <li *ngFor="let item of [] | paginate: paginationLModelLv2"></li>
+                                    </ul>
+                                    <pagination-controls (pageChange)="readCurrentPage($event, 'lv2')" id="lv2"
+                                        previousLabel="ก่อนหน้า" nextLabel="ถัดไป"></pagination-controls>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- END: Do Something This Here -->
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+
+<!-- Lv3 -->
+<div class="row">
+
+    <div class="col s12">
+        <div class="container">
+            <section class="users-list-wrapper section" style="padding-top: 0px; padding-bottom: 0px;">
+                <div class="users-list-filter">
+
+                    <!-- Header -->
+                    <div class="card-panel"
+                        style="margin-bottom: 0px; margin-top: 0px; background-color:lavender; vertical-align: text-top;">
+
+                        <div class="row">
+                            <div class="col s2">
+                                <span class="material-icons header-icon">
+                                    featured_play_list
+                                </span>
+                                <span
+                                    style="position: relative; float:left; font-size: 1em; padding-left: 10px; padding-top: 10px;">
+                                    อำเภอ/เขต
+                                </span>
+                            </div>
+                            <div class="col s10" style="text-align: right;">
+                                <cbtn [label]="'import'" [color]="'green'" [icon]="'add_circle_outline'"
+                                    (click)="import('lv3')"></cbtn>
+                                <cbtn [label]="'เพิ่มข้อมูล'" [color]="'blue'" [icon]="'add_circle_outline'"
+                                    (click)="create('lv3')"></cbtn>
+                                <cbtn [label]="'ลบข้อมูล'" [color]="'red'" [icon]="'delete'" (click)="delete('lv3')">
+                                </cbtn>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Detail -->
+                    <div class="card-panel" style="margin-bottom: 0px; margin-top: 0px;">
+
+                        <!-- BEGIN: Do Something This Here -->
+
+                        <div class="row">
+
+                            <div class="col s12">
+                                <div class="col s2">
+                                    <csop (cModel)="readPerPage($event, 'lv3')" [label]="'แสดง'" [data]="'10'"
+                                        [sources]="[{ value: '5', display: '5'},{ value: '10', display: '10'},{ value: '50', display: '50'},{ value: '100', display: '100'}]">
+                                    </csop>
+                                </div>
+                                <div class="col s7">
+
+                                </div>
+                                <div class="col s3">
+                                    <citxt (keyup.enter)="read(searchModel.lv3, 'lv3')" (cModel)="searchModel.lv3 = $event" [label]="'ค้นหา'" [data]="searchModel.keySearch"></citxt>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col s12">
+                                <div style="overflow-x:auto;">
+                                    <table id="users-list-datatable" class="bordered centered striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <div class="w20">
+                                                        <span class="header-checkbox">
+                                                            <label>
+                                                                <input type="checkbox" [(ngModel)]="checkAllLv3"
+                                                                    (change)="checkAll('lv3')" />
+                                                                <span style="padding-left: 20px;"></span>
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                    
+                                                </th>
+                                                <th>ลำดับ</th>
+                                                <th>จัดการ</th>
+                                                <th>สถานะ</th>
+                                                <th>ชื่อจังหวัด</th>
+                                                <th>ชื่ออำเภอ/เขต</th>
+                                                <th>อัพเดทวันที่</th>
+                                                <th>อัพเดทโดย</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let i of lv3; let idx = index">
+                                                <td>
+                                                    <div class="w20">
+                                                        <label>
+                                                            <input type="checkbox" [(ngModel)]="i.isSelected" />
+                                                            <span style="padding-left: 20px;"></span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w30">
+                                                        {{((paginationLModelLv3.currentPage - 1) * paginationLModelLv3.itemsPerPage) + (idx + 1)}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w75">
+                                                        <cbtne (click)="update(i.code, 'lv3')" [label]="'แก้ไขข้อมูล'"></cbtne>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100" [hidden]="!i.isActive">
+                                                        <span class="chip green lighten-5">
+                                                            <span class="green-text">ตรวจสอบแล้ว</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="w100" [hidden]="i.isActive">
+                                                        <span class="chip red lighten-5">
+                                                            <span class="red-text">รอตรวจสอบ</span>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w150">
+                                                        <a href="javascript:void(0)">
+                                                            <p>{{i.lv2List[0].title}}</p>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w150">
+                                                        <a href="javascript:void(0)">
+                                                            <p>{{i.title}}</p>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100">
+                                                        {{i.updateDate | datetimeFormat}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100">
+                                                        {{i.updateBy}}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col s6">
+                                <ul>
+                                    <li>{{calLv3}}</li>
+                                </ul>
+                            </div>
+                            <div class="col s6">
+                                <!-- <----- Pagination -->
+                                <div style="text-align: right;">
+                                    <ul>
+                                        <li *ngFor="let item of [] | paginate: paginationLModelLv3"></li>
+                                    </ul>
+                                    <pagination-controls (pageChange)="readCurrentPage($event, 'lv3')" id="lv3"
+                                        previousLabel="ก่อนหน้า" nextLabel="ถัดไป"></pagination-controls>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- END: Do Something This Here -->
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+
+<!-- Lv4 -->
+<div class="row">
+
+    <div class="col s12">
+        <div class="container">
+            <section class="users-list-wrapper section" style="padding-top: 0px; padding-bottom: 0px;">
+                <div class="users-list-filter">
+
+                    <!-- Header -->
+                    <div class="card-panel"
+                        style="margin-bottom: 0px; margin-top: 0px; background-color:lavender; vertical-align: text-top;">
+
+                        <div class="row">
+                            <div class="col s2">
+                                <span class="material-icons header-icon">
+                                    featured_play_list
+                                </span>
+                                <span style="position: relative; float:left; font-size: 1em; padding-left: 10px; padding-top: 10px;">
+                                    ตำบล/แขวง
+                                </span>
+                            </div>
+                            <div class="col s10" style="text-align: right;">
+                                <cbtn [label]="'import'" [color]="'green'" [icon]="'add_circle_outline'"
+                                    (click)="import('lv4')"></cbtn>
+                                <cbtn [label]="'เพิ่มข้อมูล'" [color]="'blue'" [icon]="'add_circle_outline'" (click)="create('lv4')"></cbtn>
+                                <cbtn [label]="'ลบข้อมูล'" [color]="'red'" [icon]="'delete'" (click)="delete('lv4')"></cbtn>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Detail -->
+                    <div class="card-panel" style="margin-bottom: 0px; margin-top: 0px;">
+
+                        <!-- BEGIN: Do Something This Here -->
+
+                        <div class="row">
+
+                            <div class="col s12">
+                                <div class="col s2">
+                                    <csop (cModel)="readPerPage($event, 'lv4')" [label]="'แสดง'" [data]="'10'" [sources]="[{ value: '5', display: '5'},{ value: '10', display: '10'},{ value: '50', display: '50'},{ value: '100', display: '100'}]"></csop>
+                                </div>
+                                <div class="col s7">
+
+                                </div>
+                                <div class="col s3">
+                                    <citxt (keyup.enter)="read(searchModel.lv4, 'lv4')" (cModel)="searchModel.lv4 = $event" [label]="'ค้นหา'" [data]="searchModel.keySearch"></citxt>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col s12">
+                                <div style="overflow-x:auto;">
+                                    <table id="users-list-datatable" class="bordered centered striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <div class="w20">
+                                                        <span class="header-checkbox">
+                                                            <label>
+                                                                <input type="checkbox" [(ngModel)]="checkAllLv4" (change)="checkAll('lv4')" />
+                                                                <span style="padding-left: 20px;"></span>
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                   
+                                                </th>
+                                                <th>ลำดับ</th>
+                                                <th>จัดการ</th>
+                                                <th>สถานะ</th>
+                                                <th>ชื่ออำเภอ/เขต</th>
+                                                <th>ชื่อตำบล/แขวง</th>
+                                                <th>อัพเดทวันที่</th>
+                                                <th>อัพเดทโดย</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let i of lv4; let idx = index">
+                                                <td>
+                                                    <div class="w20">
+                                                        <label>
+                                                            <input type="checkbox" [(ngModel)]="i.isSelected" />
+                                                            <span style="padding-left: 20px;"></span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w30">
+                                                        {{((paginationLModelLv4.currentPage - 1) * paginationLModelLv4.itemsPerPage) + (idx + 1)}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w75">
+                                                        <cbtne (click)="update(i.code, 'lv4')" [label]="'แก้ไขข้อมูล'"></cbtne>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100" [hidden]="!i.isActive">
+                                                        <span class="chip green lighten-5">
+                                                            <span class="green-text">ตรวจสอบแล้ว</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="w100" [hidden]="i.isActive">
+                                                        <span class="chip red lighten-5">
+                                                            <span class="red-text">รอตรวจสอบ</span>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w150">
+                                                        <a href="javascript:void(0)">
+                                                            <p>{{i.lv3List[0].title}}</p>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w150">
+                                                        <a href="javascript:void(0)">
+                                                            <p>{{i.title}}</p>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100">
+                                                        {{i.updateDate | datetimeFormat}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="w100">
+                                                        {{i.updateBy}}
+                                                    </div>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col s6">
+                                <ul>
+                                    <li>{{calLv4}}</li>
+                                </ul>
+                            </div>
+                            <div class="col s6">
+                                <!-- <----- Pagination -->
+                                <div style="text-align: right;">
+                                    <ul>
+                                        <li *ngFor="let item of [] | paginate: paginationLModelLv4"></li>
+                                    </ul>
+                                    <pagination-controls (pageChange)="readCurrentPage($event, 'lv4')" id="lv4" previousLabel="ก่อนหน้า" nextLabel="ถัดไป"></pagination-controls>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- END: Do Something This Here -->
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
