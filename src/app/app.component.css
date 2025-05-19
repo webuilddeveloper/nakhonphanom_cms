@@ -11,10 +11,10 @@
 
 /* DDPM */
 background: #9C0000;
-background: -webkit-linear-gradient(#c52e2e, #9C0000);
-background: -o-linear-gradient(#c52e2e, #9C0000); 
-background: -moz-linear-gradient(#c52e2e, #9C0000); 
-background: linear-gradient(#c52e2e, #9C0000); 
+background: -webkit-linear-gradient(#edca5a, #bf9001);
+background: -o-linear-gradient(#edca5a, #bf9001); 
+background: -moz-linear-gradient(#edca5a, #bf9001); 
+background: linear-gradient(#edca5a, #bf9001); 
 
 
 /* DOPA */
@@ -30,7 +30,7 @@ background-size: cover;
 .btn-login {
 
     /* DDPM */
-    background: linear-gradient(45deg, #CB0000, #9C0000) !important;
+    background: linear-gradient(45deg, #edca5a, #bf9001) !important;
 
     /* DOPA */
     /* background: #04385D !important; */
