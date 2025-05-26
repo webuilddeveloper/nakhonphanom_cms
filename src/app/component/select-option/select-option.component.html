@@ -7,7 +7,7 @@
         <mat-form-field style="height: 20px; width: 100%; font-family: Arial, Helvetica, sans-serif !important; padding-bottom: 0px !important;">
             <!-- <mat-label style="font-size: 12px !important;">{{label}}</mat-label> -->
             <mat-select [(ngModel)]="data" [disabled]="disabled" (ngModelChange)="emit($event)" [(value)]="data">
-                <mat-option *ngFor="let i of sources" value="{{i.value}}">{{i.display}}</mat-option>
+                <mat-option *ngFor="let i of sources" value="{{i.value}}" [disabled]="i.disabledValue">{{i.display}}</mat-option>
                 <!-- <mat-option>None</mat-option>
                 <mat-option value="option1">Option 1</mat-option>
                 <mat-option value="option2">Option 2</mat-option>

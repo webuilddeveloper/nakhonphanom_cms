@@ -41,6 +41,7 @@ editModel: any = { fileUrl: '' , file: [],sequence: 10, language: 'th' };
   stringToken: string = '';
   isSendNotification: boolean = false;
   dataMember = [];
+  statusReport: string = '';
 
   constructor(private apiProviderService: ApiProviderService
     , private validService: ValidateService
@@ -89,13 +90,14 @@ editModel: any = { fileUrl: '' , file: [],sequence: 10, language: 'th' };
 
     let isValid = false;
 
-    if (this.editModel.language == '') {
-      this.toastr.warning('กรุณาเลือกภาษา', 'แจ้งเตือนระบบ', { timeOut: 2000 });
+    
+    if (this.editModel.reportTitle == '') {
+      this.toastr.warning('กรุณาใส่รายละเอียดการแก้ไข', 'แจ้งเตือนระบบ', { timeOut: 2000 });
       isValid = true;
     }
 
-    if (this.editModel.title == '') {
-      this.toastr.warning('กรุณาใส่หัวข้อ', 'แจ้งเตือนระบบ', { timeOut: 2000 });
+    if (this.editModel.reportStatus == this.statusReport) {
+      this.toastr.warning('กรุณาเลือกสถานะการแจ้งเตือน', 'แจ้งเตือนระบบ', { timeOut: 2000 });
       isValid = true;
     }
 
@@ -118,15 +120,15 @@ editModel: any = { fileUrl: '' , file: [],sequence: 10, language: 'th' };
     // }
     this.serviceProviderService.post('reporter/create', this.editModel).subscribe(data => {
 
-      let model: any = {};
-      model = data;
+      // let model: any = {};
+      // model = data;
 
-      if (this.editModel.gallery.length > 0) {
-        this.editModel.gallery.forEach(element => {
-          element.reference = model.objectData.code;
-          this.serviceProviderService.post('reporter/gallery/create', element).subscribe(data => { }, err => { });
-        });
-      }
+      // if (this.editModel.gallery.length > 0) {
+      //   this.editModel.gallery.forEach(element => {
+      //     element.reference = model.objectData.code;
+      //     this.serviceProviderService.post('reporter/gallery/create', element).subscribe(data => { }, err => { });
+      //   });
+      // }
 
       /** spinner ends after 5 seconds */
       this.spinner.hide();
@@ -157,7 +159,7 @@ editModel: any = { fileUrl: '' , file: [],sequence: 10, language: 'th' };
       //     this.imageFile = 'assets/img/excel.png';
       //   }
       // }
-
+      this.statusReport = model.objectData[0].reportStatus;
       if (this.editModel.categoryList.length > 0)
         this.editModel.category = this.editModel.categoryList[0].code;
 
@@ -184,17 +186,14 @@ editModel: any = { fileUrl: '' , file: [],sequence: 10, language: 'th' };
 
   update() {
     let isValid = false;
-    if (this.editModel.title == '') {
-      this.toastr.warning('กรุณาใส่หัวข้อ', 'แจ้งเตือนระบบ', { timeOut: 2000 });
+    if (this.editModel.reportDescription == '') {
+      this.toastr.warning('กรุณาใส่รายละเอียดการแก้ไข', 'แจ้งเตือนระบบ', { timeOut: 2000 });
       isValid = true;
     }
-
-    if (this.editModel.image != undefined)
-    {
-      if (this.editModel.image.length == 0) {
-        this.toastr.warning('กรุณาใส่รูปภาพ', 'แจ้งเตือนระบบ', { timeOut: 2000 });
-        isValid = true;
-      }
+    debugger
+    if (this.editModel.reportStatus == this.statusReport) {
+      this.toastr.warning('กรุณาเลือกสถานะการแจ้งเตือน', 'แจ้งเตือนระบบ', { timeOut: 2000 });
+      isValid = true;
     }
 
     //fileUrl update
@@ -208,21 +207,27 @@ editModel: any = { fileUrl: '' , file: [],sequence: 10, language: 'th' };
     if (isValid)
       return;
 
+    if (this.editModel.reportStatus == '1') {
+      this.editModel.reportTitle = 'กำลังแก้ไข';
+    } else if (this.editModel.reportStatus == '2') {
+      this.editModel.reportTitle = 'เสร็จสิ้น';
+    }
+
     // <----- Organization
     this.editModel = this.organizationService.filterSelected(this.editModel, this.lv0Category, this.lv1Category, this.lv2Category, this.lv3Category, this.lv4Category);
     // <----- Organization
 
     this.spinner.show();
     this.serviceProviderService.post('reporter/update', this.editModel).subscribe(data => {
-      this.serviceProviderService.post('reporter/gallery/delete', this.editModel).subscribe(data => {
-        if (this.editModel.gallery.length > 0) {
-          this.editModel.gallery.forEach(element => {
-            // element.code = this.editModel.code; //เพิ่ม set active false ทั้วหมด
-            element.reference = this.editModel.code;
-            this.serviceProviderService.post('reporter/gallery/create', element).subscribe(data => { }, err => { });
-          });
-        }
-      }, err => { });
+      // this.serviceProviderService.post('reporter/gallery/delete', this.editModel).subscribe(data => {
+      //   if (this.editModel.gallery.length > 0) {
+      //     this.editModel.gallery.forEach(element => {
+      //       // element.code = this.editModel.code; //เพิ่ม set active false ทั้วหมด
+      //       element.reference = this.editModel.code;
+      //       this.serviceProviderService.post('reporter/gallery/create', element).subscribe(data => { }, err => { });
+      //     });
+      //   }
+      // }, err => { });
 
 
       /** spinner ends after 5 seconds */
